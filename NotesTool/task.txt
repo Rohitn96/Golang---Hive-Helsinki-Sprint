@@ -1,0 +1,13 @@
+func main
+func ValidateArgs
+func PrintHelp
+func LoadOrCreateFile
+func MenuLoop
+func ShowMenu
+func ReadUserChoice
+func HandleChoice
+func ReadNotes
+func DisplayNotes
+func AddNotes
+func DeleteNotes
+func WriteNotesToFile
