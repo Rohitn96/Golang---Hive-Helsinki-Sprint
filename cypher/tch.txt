@@ -1,0 +1,134 @@
+package main
+
+import "bufio"
+import 	"os"
+import 	"fmt"
+import "strings"
+import "strconv"
+
+
+
+
+func main(){
+	
+		reader := bufio.NewReader(os.Stdin)
+		var toEncrypt bool
+		var message string
+		var encoding string
+
+		
+
+		// firstMenu
+		for{
+				fmt.Println("Select operation (1/2):\n1.Encrypt\n2.Decrypt")
+				// 2. Read until the newline character (\n)
+				input, err :=  reader.ReadString('\n')
+
+				if err != nil{
+					fmt.Println("choose a number")
+					continue
+				}
+				// this delete extra white space --> strings.TrimSpace()
+				input = strings.TrimSpace(input)
+				fmt.Printf("You selected:%t\n", input)
+
+
+				/* we convert the string to int to check in the coditional --> strconv.Atoi()
+				this would return two values the (int and error )
+				
+				this mean ( _ ) we dont use that value so we dont take it 
+				
+				*/
+
+				option, _ := strconv.Atoi(input) 
+				// here we check the type 
+				fmt.Printf("input :%t\n", option)
+
+
+				
+				/*
+				1 -> encrypt -> true 
+				2 -> encrypt -> false 				
+				*/
+
+				if option == 1 {
+					toEncrypt = true
+					// this is because we need to say the menu loop to break to start the next one
+				} else if option == 2 {
+					toEncrypt = false
+				} else {
+					fmt.Println("That option is not valid.")
+					// here we place continue so the loop menu one would keep asking for the right input
+					continue
+
+				}
+
+
+
+			// here we initialize second menu loop 
+			for{
+				if toEncrypt {
+					fmt.Println("Encrypting...")
+				} else {
+					fmt.Println("Decrypting...")
+				}
+
+
+
+				fmt.Println("Select cypher (1/2):\n1.Root13.\n2.Reverse.\n3.Cypher")
+
+
+
+				input_cypher, err :=  reader.ReadString('\n')
+
+				if err != nil{
+					fmt.Println("error reading input " , err)
+					continue
+				}
+
+				// this delete extra white space --> strings.TrimSpace()
+				input_cypher = strings.TrimSpace(input_cypher)
+				option, _ := strconv.Atoi(input_cypher) 
+
+
+				switch option {
+					case 1:
+						encoding = "Root13"
+						fmt.Println("Your cypher is: "+ encoding)
+					case 2:
+						encoding = "Reverse"
+						fmt.Println("Your cypher is: "+ encoding)
+					default:
+						fmt.Println("Invalid selection")
+						continue
+				}
+
+				// after we get wich cypher we ask for the message need it
+				fmt.Println("Enter the message:")
+
+				input_msg, err :=  reader.ReadString('\n')
+
+				if err != nil{
+					fmt.Println("Error reading message", err)
+					continue
+				}
+
+				message = strings.TrimSpace(input_msg)
+				fmt.Printf("Result (%s): %s\n", encoding, message)
+				return
+			}
+				
+		}
+}
+
+
+// functional programming
+// reads until newline and returns a trimmed string
+// func ReadTrimString(reader *bufio.Reader) (string, error) {
+//     input, err := reader.ReadString('\n')
+//     // Always trim, even if err is not nil,
+//     return strings.TrimSpace(input), err 
+// }
+
+
+
